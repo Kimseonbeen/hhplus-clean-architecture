@@ -4,7 +4,8 @@ import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
 import io.hhplus.lecture.domain.validator.LectureApplyValidator;
 import io.hhplus.lecture.infrastructure.LectureApplyRepositoryImpl;
 import io.hhplus.lecture.infrastructure.LectureScheduleRepositoryImpl;
-import io.hhplus.lecture.interfaces.api.LectureApplyResponse;
+import io.hhplus.lecture.interfaces.api.dto.request.LectureApplyRequest;
+import io.hhplus.lecture.interfaces.api.dto.response.LectureApplyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,9 @@ public class LectureApplyService {
     private final LectureScheduleRepositoryImpl lectureScheduleRepository;
     private final LectureApplyRepositoryImpl lectureApplyRepository;
 
-    public void apply(long userId, long lectureScheduleId) {
-        LectureSchedule lectureSchedule = lectureScheduleRepository.findById(lectureScheduleId)
+    public LectureApplyResponse apply(long userId, LectureApplyRequest request) {
+        LectureSchedule lectureSchedule = lectureScheduleRepository.findById(request.scheduleId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 특강입니다."));
-
-        // 수강 신청 검증
-        //lectureSchedule.validateAvailableToApply();
 
         LectureApplyValidator.validateApply(lectureSchedule, userId, lectureApplyRepository);
 
@@ -30,6 +28,12 @@ public class LectureApplyService {
 
         LectureApply lectureApply = LectureApply.apply(userId, lectureSchedule);
         lectureApplyRepository.save(lectureApply);
+
+        return new LectureApplyResponse(
+                lectureSchedule.getLecture().getId(),
+                lectureSchedule.getLecture().getName(),
+                lectureSchedule.getLecture().getLecturer()
+        );
     }
 
     public List<LectureApplyResponse> getUserAppliedLectures(long userId) {

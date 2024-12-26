@@ -4,10 +4,12 @@ import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
 @Getter
 public class LectureApply {
 

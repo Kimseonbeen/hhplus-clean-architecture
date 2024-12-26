@@ -1,7 +1,4 @@
-package io.hhplus.lecture.interfaces.api;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+package io.hhplus.lecture.interfaces.api.dto.response;
 
 public record LectureApplyResponse(
         Long lectureId,

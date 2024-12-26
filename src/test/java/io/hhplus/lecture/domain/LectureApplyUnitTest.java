@@ -8,7 +8,8 @@ import io.hhplus.lecture.domain.lectureApply.LectureApply;
 import io.hhplus.lecture.domain.lectureApply.LectureApplyService;
 import io.hhplus.lecture.infrastructure.LectureApplyRepositoryImpl;
 import io.hhplus.lecture.infrastructure.LectureScheduleRepositoryImpl;
-import io.hhplus.lecture.interfaces.api.LectureApplyResponse;
+import io.hhplus.lecture.interfaces.api.dto.request.LectureApplyRequest;
+import io.hhplus.lecture.interfaces.api.dto.response.LectureApplyResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -51,12 +52,14 @@ class LectureApplyUnitTest {
             final long USER_ID = 1L;
             final long SCHEDULE_ID = 999L;
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(SCHEDULE_ID))
                     .willReturn(Optional.empty());
 
             // when
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                lectureApplyService.apply(USER_ID, SCHEDULE_ID);
+                lectureApplyService.apply(USER_ID, request);
             });
 
             // then
@@ -73,12 +76,14 @@ class LectureApplyUnitTest {
                     .asFullyBooked()
                     .build();
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(USER_ID))
                     .willReturn(Optional.of(schedule));
 
             // when
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                lectureApplyService.apply(USER_ID, SCHEDULE_ID);
+                lectureApplyService.apply(USER_ID, request);
             });
             // then
             assertEquals("수강 신청이 마감되었습니다.", exception.getMessage());
@@ -95,11 +100,13 @@ class LectureApplyUnitTest {
                     .withCurrentCapacity(29)    // 현재 신청인원을 29으로 설정
                     .build();
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(SCHEDULE_ID))
                     .willReturn(Optional.of(schedule));
 
             // when & then
-            assertDoesNotThrow(() -> lectureApplyService.apply(USER_ID, SCHEDULE_ID));
+            assertDoesNotThrow(() -> lectureApplyService.apply(USER_ID, request));
         }
 
         @Test
@@ -112,12 +119,14 @@ class LectureApplyUnitTest {
                     .withDate(LocalDate.now().minusDays(1))
                     .build();
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(USER_ID))
                     .willReturn(Optional.of(schedule));
 
             // when
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                lectureApplyService.apply(USER_ID, SCHEDULE_ID);
+                lectureApplyService.apply(USER_ID, request);
             });
             // then
             assertEquals("신청 가능한 시간이 지났습니다.", exception.getMessage());
@@ -133,6 +142,8 @@ class LectureApplyUnitTest {
                     .withDate(LocalDate.now().plusDays(1))
                     .build();
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(USER_ID))
                     .willReturn(Optional.of(schedule));
             given(lectureApplyRepository.existsByUserIdAndLectureScheduleId(USER_ID, SCHEDULE_ID))
@@ -140,7 +151,7 @@ class LectureApplyUnitTest {
 
             // when
             Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-                lectureApplyService.apply(USER_ID, SCHEDULE_ID);
+                lectureApplyService.apply(USER_ID, request);
             });
             // then
             assertEquals("이미 신청한 특강입니다.", exception.getMessage());
@@ -156,11 +167,13 @@ class LectureApplyUnitTest {
                     .withDate(LocalDate.now().plusDays(1))
                     .build();
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(1L))
                     .willReturn(Optional.of(schedule));
 
             // when
-            lectureApplyService.apply(USER_ID, SCHEDULE_ID);
+            lectureApplyService.apply(USER_ID, request);
             // then
             assertEquals(1, schedule.getCurrentCapacity());
         }
@@ -176,13 +189,15 @@ class LectureApplyUnitTest {
                     .withDate(LocalDate.now().plusDays(1))
                     .build();
 
+            LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
+
             given(lectureScheduleRepository.findById(SCHEDULE_ID))
                     .willReturn(Optional.of(schedule));
             given(lectureApplyRepository.existsByUserIdAndLectureScheduleId(USER_ID, SCHEDULE_ID))
                     .willReturn(false);         // 중복 신청 아님
 
             // when
-            lectureApplyService.apply(USER_ID, SCHEDULE_ID);
+            lectureApplyService.apply(USER_ID, request);
 
             // then
             then(lectureApplyRepository).should().save(any(LectureApply.class));

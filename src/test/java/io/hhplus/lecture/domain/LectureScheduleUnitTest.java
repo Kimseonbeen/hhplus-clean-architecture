@@ -6,6 +6,7 @@ import io.hhplus.lecture.domain.builder.LectureScheduleTestDataBuilder;
 import io.hhplus.lecture.domain.lectureApply.LectureApplyService;
 import io.hhplus.lecture.infrastructure.LectureApplyRepositoryImpl;
 import io.hhplus.lecture.infrastructure.LectureScheduleRepositoryImpl;
+import io.hhplus.lecture.interfaces.api.dto.response.LectureScheduleResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -56,7 +57,7 @@ public class LectureScheduleUnitTest {
                     .willReturn(schedules);
 
             // when
-            List<LectureSchedule> result = lectureScheduleService.getAvailableLectures(targetDate);
+            List<LectureScheduleResponse> result = lectureScheduleService.getAvailableLectures(targetDate);
 
             // then
             assertEquals(2, result.size());
@@ -83,7 +84,7 @@ public class LectureScheduleUnitTest {
                     .willReturn(schedules);
 
             // when
-            List<LectureSchedule> result = lectureScheduleService.getAvailableLectures(targetDate);
+            List<LectureScheduleResponse> result = lectureScheduleService.getAvailableLectures(targetDate);
 
             // then
             assertEquals(1, result.size());
@@ -108,7 +109,7 @@ public class LectureScheduleUnitTest {
                     .willReturn(schedules);
 
             // when
-            List<LectureSchedule> result = lectureScheduleService.getAvailableLectures(today);
+            List<LectureScheduleResponse> result = lectureScheduleService.getAvailableLectures(today);
 
             // then
             assertEquals(1, result.size());
@@ -122,7 +123,7 @@ public class LectureScheduleUnitTest {
                     .willReturn(Collections.emptyList());
 
             // when
-            List<LectureSchedule> result = lectureScheduleService.getAvailableLectures(targetDate);
+            List<LectureScheduleResponse> result = lectureScheduleService.getAvailableLectures(targetDate);
 
             // then
             assertTrue(result.isEmpty());
