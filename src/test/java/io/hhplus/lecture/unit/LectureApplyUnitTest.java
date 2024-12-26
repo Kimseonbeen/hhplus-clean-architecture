@@ -54,7 +54,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(SCHEDULE_ID))
+            given(lectureScheduleRepository.findByIdWithLock(SCHEDULE_ID))
                     .willReturn(Optional.empty());
 
             // when
@@ -78,7 +78,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(USER_ID))
+            given(lectureScheduleRepository.findByIdWithLock(USER_ID))
                     .willReturn(Optional.of(schedule));
 
             // when
@@ -102,7 +102,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(SCHEDULE_ID))
+            given(lectureScheduleRepository.findByIdWithLock(SCHEDULE_ID))
                     .willReturn(Optional.of(schedule));
 
             // when & then
@@ -121,7 +121,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(USER_ID))
+            given(lectureScheduleRepository.findByIdWithLock(USER_ID))
                     .willReturn(Optional.of(schedule));
 
             // when
@@ -144,7 +144,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(USER_ID))
+            given(lectureScheduleRepository.findByIdWithLock(USER_ID))
                     .willReturn(Optional.of(schedule));
             given(lectureApplyRepository.existsByUserIdAndLectureScheduleId(USER_ID, SCHEDULE_ID))
                     .willReturn(true);
@@ -169,7 +169,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(1L))
+            given(lectureScheduleRepository.findByIdWithLock(1L))
                     .willReturn(Optional.of(schedule));
 
             // when
@@ -191,7 +191,7 @@ class LectureApplyUnitTest {
 
             LectureApplyRequest request = new LectureApplyRequest(SCHEDULE_ID);
 
-            given(lectureScheduleRepository.findById(SCHEDULE_ID))
+            given(lectureScheduleRepository.findByIdWithLock(SCHEDULE_ID))
                     .willReturn(Optional.of(schedule));
             given(lectureApplyRepository.existsByUserIdAndLectureScheduleId(USER_ID, SCHEDULE_ID))
                     .willReturn(false);         // 중복 신청 아님
