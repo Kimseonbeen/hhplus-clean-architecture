@@ -1,3 +1,4 @@
+
 # 특강 신청 서비스 요구사항
 
 ## 특강 신청 API
@@ -324,3 +325,4 @@ public interface LectureScheduleRepository extends JpaRepository<LectureSchedule
 - 데드락(Deadlock) 발생 가능성이 있습니다.
 
 ---
+=======
