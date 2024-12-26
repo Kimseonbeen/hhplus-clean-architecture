@@ -15,9 +15,7 @@ public class LectureApplyRepositoryImpl implements LectureApplyRepository {
 
     @Override
     public LectureApply save(LectureApply lectureApply) {
-
         return lectureJpaApplyRepository.save(lectureApply);
-
     }
 
     @Override

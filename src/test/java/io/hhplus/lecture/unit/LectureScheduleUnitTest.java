@@ -1,10 +1,8 @@
-package io.hhplus.lecture.domain;
+package io.hhplus.lecture.unit;
 
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
 import io.hhplus.lecture.domain.LectureSchdule.LectureScheduleService;
-import io.hhplus.lecture.domain.builder.LectureScheduleTestDataBuilder;
-import io.hhplus.lecture.domain.lectureApply.LectureApplyService;
-import io.hhplus.lecture.infrastructure.LectureApplyRepositoryImpl;
+import io.hhplus.lecture.unit.domain.builder.LectureScheduleTestDataBuilder;
 import io.hhplus.lecture.infrastructure.LectureScheduleRepositoryImpl;
 import io.hhplus.lecture.interfaces.api.dto.response.LectureScheduleResponse;
 import org.junit.jupiter.api.DisplayName;

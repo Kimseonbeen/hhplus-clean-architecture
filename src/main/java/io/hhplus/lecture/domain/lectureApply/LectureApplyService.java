@@ -8,6 +8,7 @@ import io.hhplus.lecture.interfaces.api.dto.request.LectureApplyRequest;
 import io.hhplus.lecture.interfaces.api.dto.response.LectureApplyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class LectureApplyService {
     private final LectureScheduleRepositoryImpl lectureScheduleRepository;
     private final LectureApplyRepositoryImpl lectureApplyRepository;
 
+    @Transactional
     public LectureApplyResponse apply(long userId, LectureApplyRequest request) {
         LectureSchedule lectureSchedule = lectureScheduleRepository.findById(request.scheduleId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 특강입니다."));
@@ -36,6 +38,7 @@ public class LectureApplyService {
         );
     }
 
+    @Transactional
     public List<LectureApplyResponse> getUserAppliedLectures(long userId) {
 
         List<LectureApply> lectureApplyList = lectureApplyRepository.findByUserId(userId);

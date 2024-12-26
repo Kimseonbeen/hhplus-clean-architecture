@@ -1,9 +1,9 @@
-package io.hhplus.lecture.domain;
+package io.hhplus.lecture.unit;
 
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
-import io.hhplus.lecture.domain.builder.LectureApplyTestDataBuilder;
-import io.hhplus.lecture.domain.builder.LectureScheduleTestDataBuilder;
-import io.hhplus.lecture.domain.builder.LectureTestDataBuilder;
+import io.hhplus.lecture.unit.domain.builder.LectureApplyTestDataBuilder;
+import io.hhplus.lecture.unit.domain.builder.LectureScheduleTestDataBuilder;
+import io.hhplus.lecture.unit.domain.builder.LectureTestDataBuilder;
 import io.hhplus.lecture.domain.lectureApply.LectureApply;
 import io.hhplus.lecture.domain.lectureApply.LectureApplyService;
 import io.hhplus.lecture.infrastructure.LectureApplyRepositoryImpl;

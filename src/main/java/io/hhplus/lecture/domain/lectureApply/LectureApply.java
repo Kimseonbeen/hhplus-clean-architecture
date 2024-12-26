@@ -28,8 +28,7 @@ public class LectureApply {
     private LocalDateTime updatedAt;
 
     @Builder
-    private LectureApply(long id, long userId, LectureSchedule lectureSchedule,
-                         String status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    private LectureApply(long id, long userId, LectureSchedule lectureSchedule, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.userId = userId;
         this.lectureSchedule = lectureSchedule;

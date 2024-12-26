@@ -1,8 +1,6 @@
-package io.hhplus.lecture.domain.builder;
+package io.hhplus.lecture.unit.domain.builder;
 
 import io.hhplus.lecture.domain.lecture.Lecture;
-
-import java.time.LocalTime;
 
 public class LectureTestDataBuilder {
 

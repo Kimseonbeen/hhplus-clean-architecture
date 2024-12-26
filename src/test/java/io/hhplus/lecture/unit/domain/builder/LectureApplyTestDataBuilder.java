@@ -1,4 +1,4 @@
-package io.hhplus.lecture.domain.builder;
+package io.hhplus.lecture.unit.domain.builder;
 
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
 import io.hhplus.lecture.domain.lectureApply.LectureApply;
