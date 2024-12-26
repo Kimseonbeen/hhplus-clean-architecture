@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -76,6 +77,7 @@ public class LectureApplyIntegrationTest {
     void 동시에_40명이_신청시_30명만_성공() throws InterruptedException {
         // given
         LectureSchedule lectureSchedule = lectureScheduleRepository.findById(1L).get(); // 이미 있는 schedule 사용
+
         int threads = 40;
         ExecutorService executorService = Executors.newFixedThreadPool(threads);
         CountDownLatch latch = new CountDownLatch(threads);
@@ -85,6 +87,7 @@ public class LectureApplyIntegrationTest {
 
         // when
         for (int i = 0; i < threads; i++) {
+
             long userId = i + 1;
             executorService.submit(() -> {
                 try {
