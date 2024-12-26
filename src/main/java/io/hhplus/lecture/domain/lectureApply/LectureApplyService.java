@@ -21,7 +21,9 @@ public class LectureApplyService {
 
     @Transactional
     public LectureApplyResponse apply(long userId, LectureApplyRequest request) {
-        LectureSchedule lectureSchedule = lectureScheduleRepository.findById(request.scheduleId())
+
+        LectureSchedule lectureSchedule = lectureScheduleRepository.findByIdWithLock(request.scheduleId())
+
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 특강입니다."));
 
         LectureApplyValidator.validateApply(lectureSchedule, userId, lectureApplyRepository);

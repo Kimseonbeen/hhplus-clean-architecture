@@ -24,4 +24,9 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
     public List<LectureSchedule> findByDate(LocalDate localDate) {
         return lectureJpaScheduleRepository.findByDate(localDate);
     }
+
+    @Override
+    public Optional<LectureSchedule> findByIdWithLock(Long id) {
+        return lectureJpaScheduleRepository.findByIdWithLock(id);
+    }
 }
