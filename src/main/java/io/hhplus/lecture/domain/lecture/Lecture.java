@@ -3,11 +3,13 @@ package io.hhplus.lecture.domain.lecture;
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @Builder
 public class Lecture {
 

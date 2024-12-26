@@ -37,6 +37,11 @@ public class LectureScheduleTestDataBuilder {
         return this;
     }
 
+    public LectureScheduleTestDataBuilder withLecture(Lecture lecture) {
+        this.lecture = lecture;
+        return this;
+    }
+
     public LectureScheduleTestDataBuilder asFullyBooked() {
         this.currentCapacity = 30;
         return this;
