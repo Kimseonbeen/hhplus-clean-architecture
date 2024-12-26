@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Getter
+@Table(name = "lecture_apply", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "lecture_schedule_id"})
+})
 public class LectureApply {
 
     @Id

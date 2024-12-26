@@ -1,6 +1,5 @@
 package io.hhplus.lecture.integration;
 
-
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
 import io.hhplus.lecture.domain.lectureApply.LectureApplyService;
 import io.hhplus.lecture.infrastructure.LectureJpaApplyRepository;
@@ -20,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -77,15 +77,17 @@ public class LectureApplyIntegrationTest {
     void 동시에_40명이_신청시_30명만_성공() throws InterruptedException {
         // given
         LectureSchedule lectureSchedule = lectureScheduleRepository.findById(1L).get(); // 이미 있는 schedule 사용
-        int numberOfThreads = 40;
-        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
-        CountDownLatch latch = new CountDownLatch(numberOfThreads);
+
+        int threads = 40;
+        ExecutorService executorService = Executors.newFixedThreadPool(threads);
+        CountDownLatch latch = new CountDownLatch(threads);
 
         AtomicInteger successCount = new AtomicInteger();
         AtomicInteger failCount = new AtomicInteger();
 
         // when
-        for (int i = 0; i < numberOfThreads; i++) {
+        for (int i = 0; i < threads; i++) {
+
             long userId = i + 1;
             executorService.submit(() -> {
                 try {
@@ -109,5 +111,36 @@ public class LectureApplyIntegrationTest {
                 () -> assertEquals(10, failCount.get(), "실패한 신청 수는 10이어야 합니다"),
                 () -> assertEquals(30, updatedSchedule.getCurrentCapacity(), "현재 수강 인원은 30이어야 합니다")
         );
+    }
+
+    @Test
+    void 동일한_유저는_같은_강의를_한번만_신청할_수_있다() throws InterruptedException {
+        // given
+        int thread = 5;
+        ExecutorService executorService = Executors.newFixedThreadPool(thread);
+        CountDownLatch latch = new CountDownLatch(thread);
+
+        final long USER_ID = 1L;
+        final long LECTURE_SCHEDULE_ID = 1L;
+        LectureApplyRequest request = new LectureApplyRequest(USER_ID);
+
+        // when
+        for (int i = 0; i < thread; i++) {
+            executorService.submit(() -> {
+                try {
+                    lectureApplyService.apply(LECTURE_SCHEDULE_ID, request);
+                } catch (Exception e) {
+                    e.getStackTrace();
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+        latch.await();
+
+        // then
+        List<LectureApplyResponse> applies = lectureApplyService.getUserAppliedLectures(USER_ID);
+
+        assertThat(applies).hasSize(1);
     }
 }
