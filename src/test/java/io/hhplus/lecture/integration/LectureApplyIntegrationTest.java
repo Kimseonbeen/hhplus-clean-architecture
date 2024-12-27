@@ -1,6 +1,8 @@
 package io.hhplus.lecture.integration;
 
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
+import io.hhplus.lecture.domain.LectureSchdule.LectureScheduleRepository;
+import io.hhplus.lecture.domain.lectureApply.LectureApplyRepository;
 import io.hhplus.lecture.domain.lectureApply.LectureApplyService;
 import io.hhplus.lecture.infrastructure.LectureJpaApplyRepository;
 import io.hhplus.lecture.infrastructure.LectureJpaScheduleRepository;
@@ -29,9 +31,9 @@ public class LectureApplyIntegrationTest {
     private LectureApplyService lectureApplyService;
 
     @Autowired
-    private LectureJpaApplyRepository lectureApplyRepository;
+    private LectureApplyRepository lectureApplyRepository;
     @Autowired
-    private LectureJpaScheduleRepository lectureScheduleRepository;
+    private LectureScheduleRepository lectureScheduleRepository;
 
     @Test
     @Transactional

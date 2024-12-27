@@ -1,9 +1,8 @@
 package io.hhplus.lecture.domain.lectureApply;
 
 import io.hhplus.lecture.domain.LectureSchdule.LectureSchedule;
+import io.hhplus.lecture.domain.LectureSchdule.LectureScheduleRepository;
 import io.hhplus.lecture.domain.validator.LectureApplyValidator;
-import io.hhplus.lecture.infrastructure.LectureApplyRepositoryImpl;
-import io.hhplus.lecture.infrastructure.LectureScheduleRepositoryImpl;
 import io.hhplus.lecture.interfaces.api.dto.request.LectureApplyRequest;
 import io.hhplus.lecture.interfaces.api.dto.response.LectureApplyResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LectureApplyService {
 
-    private final LectureScheduleRepositoryImpl lectureScheduleRepository;
-    private final LectureApplyRepositoryImpl lectureApplyRepository;
+    private final LectureScheduleRepository lectureScheduleRepository;
+    private final LectureApplyRepository lectureApplyRepository;
 
     @Transactional
     public LectureApplyResponse apply(long userId, LectureApplyRequest request) {

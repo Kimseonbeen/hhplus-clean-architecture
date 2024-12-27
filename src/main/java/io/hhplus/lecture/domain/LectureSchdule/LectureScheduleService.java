@@ -1,6 +1,5 @@
 package io.hhplus.lecture.domain.LectureSchdule;
 
-import io.hhplus.lecture.infrastructure.LectureScheduleRepositoryImpl;
 import io.hhplus.lecture.interfaces.api.dto.response.LectureScheduleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LectureScheduleService {
 
-    private final LectureScheduleRepositoryImpl lectureScheduleRepository;
+    private final LectureScheduleRepository lectureScheduleRepository;
 
     public List<LectureScheduleResponse> getAvailableLectures(LocalDate localDate) {
 
